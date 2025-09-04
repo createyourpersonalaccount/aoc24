@@ -89,16 +89,28 @@
 ;;; An alternative solution where a port transducer is used. This
 ;;; means that the file is read line-by-line and then the "safety" of
 ;;; each line is computed and the results are tallied.
-
+;;;
+;;; Another optimization is that a single buffer is used to read and
+;;; process each line of the file.
 (define (line-to-numbers line)
   "Convert a file row into a list of numbers."
   (map string->number (string-tokenize line)))
 
 (define (solution-1')
+  ;; A single buffer with which the file is read line-by-line.
+  (define buffer (make-string 1024))
+  ;; A custom `read-line!' function that uses `substring/shared' to
+  ;; avoid copy-on-write of plain `substring' (which would nullify our
+  ;; optimization!) This function propagates EOF which is later used
+  ;; by port-transduce to stop the transducer.
+  (define (my-read-line! port)
+    (let ((n (read-line! buffer port)))
+      (if (eof-object? n) n
+          (substring/shared buffer 0 n))))
   (call-with-input-file "input/02"
     (lambda (port)
       (port-transduce (compose (tmap line-to-numbers)
                                (tfilter safe-1))
                       rcount
-                      read-line
+                      my-read-line!
                       port))))
