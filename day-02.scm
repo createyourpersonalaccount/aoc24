@@ -18,6 +18,7 @@
 
 (use-modules (ice-9 format)
              (ice-9 match)
+             (ice-9 rdelim)
              (srfi srfi-13)
              (srfi srfi-26)
              (srfi srfi-171)
@@ -84,3 +85,20 @@
 
 (define (solution-2)
   (count-predicate safe-2 numbers))
+
+;;; An alternative solution where a port transducer is used. This
+;;; means that the file is read line-by-line and then the "safety" of
+;;; each line is computed and the results are tallied.
+
+(define (line-to-numbers line)
+  "Convert a file row into a list of numbers."
+  (map string->number (string-tokenize line)))
+
+(define (solution-1')
+  (call-with-input-file "input/02"
+    (lambda (port)
+      (port-transduce (compose (tmap line-to-numbers)
+                               (tfilter safe-1))
+                      rcount
+                      read-line
+                      port))))
