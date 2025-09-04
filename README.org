@@ -1,5 +1,5 @@
 * Advent of Code 2024 solutions in GNU Guile
 
-This is a flat project. The ~.dir-locals.el~ will ensure that your [[https://www.nongnu.org/geiser/][Geiser]] can load the modules by modifyhing the load path to include the current directory.
+This is a project with a flat organization. The ~.dir-locals.el~ will ensure that your [[https://www.nongnu.org/geiser/][Geiser]] can load the modules by modifyhing the load path to include the current directory.
 
 Every solution is in its own module. The ~utils.scm~ module contains code common to all solutions. The inputs to the puzzles should go in the ~input/~ directory.
