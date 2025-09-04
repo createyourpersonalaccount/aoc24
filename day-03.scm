@@ -14,11 +14,7 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-(define-module (day-03)
-  #:export (find-muls
-            find-muls-2
-            solution-1
-            solution-2))
+(define-module (day-03))
 
 (use-modules (ice-9 peg)
              (ice-9 match)
