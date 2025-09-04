@@ -1,0 +1,3 @@
+* The input directory
+
+Store the inputs to the puzzles here in the format ~dd~ where ~dd~ is the day. For example the input to the first puzzle should be a file named ~01~.
