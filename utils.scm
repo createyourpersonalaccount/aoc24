@@ -21,6 +21,7 @@
 (use-modules (ice-9 textual-ports)
              (ice-9 peg)
              (srfi srfi-1)
+             (srfi srfi-26)
              (srfi srfi-41)
              (srfi srfi-171))
 
